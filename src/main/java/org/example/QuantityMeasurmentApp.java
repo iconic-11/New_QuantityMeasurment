@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class QuantityMeasurmentApp {
 
-    static class Feet {
+    public static class Feet {
         private final double value;
 
         public Feet(double value) {
