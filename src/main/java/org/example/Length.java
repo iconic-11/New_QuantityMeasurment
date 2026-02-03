@@ -15,7 +15,10 @@ public class Length {
     public enum LengthUnit
     {
         Feet(12.0), // 1 feet= 12 inchs
-        Inches(1.0);
+        Inches(1.0),
+        Yards(36.0),  // 1 yard = 3 inches = 36 feet
+        Centimeters(0.3937);
+
 
         private final double conversionFactor;
         LengthUnit(double conversionFactor)

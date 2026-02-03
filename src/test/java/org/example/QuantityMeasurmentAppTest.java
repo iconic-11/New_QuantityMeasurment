@@ -133,6 +133,72 @@ public class QuantityMeasurmentAppTest {
         assertTrue(feet1.equals(feet2));
 
     }
+    @Test
+    public void testEquality_YardtoYard()
+    {
+        Length yard1 = new Length(34, Length.LengthUnit.Yards);
+        Length yard2 = new Length(34, Length.LengthUnit.Yards);
+
+        assertTrue(yard1.equals(yard2));
+    }
+    @Test
+    public void testInEquality_YardtoYard()
+    {
+        Length yard1 = new Length(34, Length.LengthUnit.Yards);
+        Length yard2 = new Length(37, Length.LengthUnit.Yards);
+
+        assertFalse(yard1.equals(yard2));
+    }
+    @Test
+    public void testEquality_YardtoFeet()
+    {
+        Length yard1 = new Length(1, Length.LengthUnit.Yards);
+        Length feet1 = new Length(3, Length.LengthUnit.Feet);
+
+        assertTrue(yard1.equals(feet1));
+    }
+    @Test
+    public void testInEquality_YardtoFeet()
+    {
+        Length yard1 = new Length(10, Length.LengthUnit.Yards);
+        Length feet1 = new Length(37, Length.LengthUnit.Feet);
+
+        assertFalse(yard1.equals(feet1));
+    }
+    @Test
+    public void testEquality_YardtoInches()
+    {
+        Length yard1 = new Length(1, Length.LengthUnit.Yards);
+        Length inch1 = new Length(36, Length.LengthUnit.Inches);
+
+        assertTrue(yard1.equals(inch1));
+    }
+    @Test
+    public void testInEquality_YardtoInches()
+    {
+        Length yard1 = new Length(1, Length.LengthUnit.Yards);
+        Length inch1 = new Length(35, Length.LengthUnit.Inches);
+
+        assertFalse(yard1.equals(inch1));
+    }
+    @Test
+    public void thirtyPoint48CmEqualsOneFoot() {
+        Length cm = new Length(30.48, Length.LengthUnit.Centimeters);
+        Length foot = new Length(1.0, Length.LengthUnit.Feet);
+
+        assertTrue(cm.equals(foot));
+    }
+    @Test
+    public void reflexiveSymmetricAndTransitiveProperty() {
+        Length l1 = new Length(1.0, Length.LengthUnit.Yards);
+        Length l2 = new Length(3.0, Length.LengthUnit.Feet);
+        Length l3 = new Length(36.0, Length.LengthUnit.Inches);
+
+        assertTrue(l1.equals(l2)); // symmetric
+        assertTrue(l2.equals(l3)); // transitive
+        assertTrue(l1.equals(l3)); // transitive
+    }
+
 
 }
 

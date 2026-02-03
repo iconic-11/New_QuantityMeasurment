@@ -1,6 +1,7 @@
 package org.example;
 
 import java.util.Scanner;
+import java.lang.Double;
 
 public class QuantityMeasurmentApp {
 
@@ -49,6 +50,26 @@ public class QuantityMeasurmentApp {
         }
     }
 
+    static class Yards{
+        private final double value;
+
+        public Yards(double value)
+        {
+            this.value=value;
+        }
+        @Override
+        public boolean equals(Object obj)
+        {
+            if(this==obj) return true;
+            if(obj==null) return false;
+
+            Inches other = (Inches)obj;
+
+            return Double.compare(this.value,other.value)==0;
+
+        }
+    }
+
     static void CheckFeetEquality(double v1, double v2) {
         Feet f1 = new Feet(v1);
         Feet f2 = new Feet(v2);
@@ -68,6 +89,17 @@ public class QuantityMeasurmentApp {
             System.out.println("Inches values are equal");
         } else {
             System.out.println("Inches values are not equal");
+        }
+
+    }
+    static void CheckYardsEquality(double v1, double v2) {
+        Yards y1 = new Yards(v1);
+        Yards y2 = new Yards(v2);
+
+        if (y1.equals(y2)) {
+            System.out.println("Yards values are equal");
+        } else {
+            System.out.println("Yards values are not equal");
         }
 
     }
@@ -99,6 +131,9 @@ public class QuantityMeasurmentApp {
 
         Length l1 = new Length(3.0, Length.LengthUnit.Feet);
         Length l2 = new Length(36.0, Length.LengthUnit.Inches);
+
+        Length l3 = new Length(5, Length.LengthUnit.Yards);
+        Length l4 = new Length(6, Length.LengthUnit.Centimeters);
         System.out.println(l1.compare(l2)); // true
 
     }
