@@ -74,5 +74,65 @@ public class QuantityMeasurmentAppTest {
         assertTrue(i1.equals(i1));
     }
 
+    // Test cases for UC3 -> Length
+    @Test
+    public void testFeetEquality() {
+        Length feet1 = new Length(1.0, Length.LengthUnit.Feet);
+        Length feet2 = new Length(1.0, Length.LengthUnit.Feet);
+
+        assertTrue(feet1.equals(feet2));
+    }
+
+    @Test
+    public void testInchesEquality() {
+        Length inches1 = new Length(1.0, Length.LengthUnit.Inches);
+        Length inches2 = new Length(1.0, Length.LengthUnit.Inches);
+
+        assertTrue(inches1.equals(inches2));
+    }
+    @Test
+    public void testFeetInchesComparison()
+    {
+        Length feet = new Length(1.0, Length.LengthUnit.Feet);
+        Length inch = new Length(12.0, Length.LengthUnit.Inches);
+
+        assertTrue(feet.equals(inch));
+
+    }
+    @Test
+    public void testFeetInequality()
+    {
+        Length feet1 = new Length(1.0,Length.LengthUnit.Feet);
+        Length feet2 = new Length(3.0, Length.LengthUnit.Feet);
+
+        assertFalse(feet1.equals(feet2));
+
+    }
+    @Test
+    public void testInchesInequality()
+    {
+        Length inch1 = new Length(10.0,Length.LengthUnit.Inches);
+        Length inch2 = new Length(30.0, Length.LengthUnit.Inches);
+        assertFalse(inch1.equals(inch2));
+    }
+    @Test
+    public void testcrossUnitInequality()
+    {
+
+        Length feet = new Length(1.0, Length.LengthUnit.Feet);
+        Length inches = new Length(10.0, Length.LengthUnit.Inches);
+
+        assertFalse(feet.equals(inches));
+    }
+    @Test
+    public void testMultipleFeetComparison()
+    {
+        Length feet1 = new Length(3.0, Length.LengthUnit.Feet);
+        Length feet2 = new Length(36.0, Length.LengthUnit.Inches);
+
+        assertTrue(feet1.equals(feet2));
+
+    }
+
 }
 
