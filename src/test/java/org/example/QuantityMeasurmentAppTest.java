@@ -198,6 +198,41 @@ public class QuantityMeasurmentAppTest {
         assertTrue(l2.equals(l3)); // transitive
         assertTrue(l1.equals(l3)); // transitive
     }
+    @Test
+    void testEquality_YardToInches_equivalentValue() {
+        Length len1 = new Length(1.0, Length.LengthUnit.Yards);
+        Length len2 = new Length(36.0, Length.LengthUnit.Inches);
+
+        assertTrue(len1.equals(len2), "Expected 1 YARD to be equal to 36 Inches");
+        assertTrue(len2.equals(len1), "Expected symmetry: 36 Inches equals 1 YARD");
+    }
+    @Test
+    void testEquality_CmToInches_equivalentValue() {
+        // 2.54 cm = 1 inch
+        Length len1 = new Length(2.54, Length.LengthUnit.Centimeters);
+        Length len2 = new Length(1.0, Length.LengthUnit.Inches);
+
+        assertTrue(len1.equals(len2), "Expected 2.54 CM to be equal to 1 Inch");
+        assertTrue(len2.equals(len1), "Expected symmetry: 1 Inch equals 2.54 CM");
+    }
+
+    @Test
+    void testEquality_YardToInches_notEquivalentValue() {
+        Length len1 = new Length(1.0, Length.LengthUnit.Yards);
+        Length len2 = new Length(35.0, Length.LengthUnit.Inches);
+
+        assertFalse(len1.equals(len2), "Expected 1 YARD to NOT be equal to 35 Inches");
+        assertFalse(len2.equals(len1), "Expected symmetry: 35 Inches to NOT equal 1 YARD");
+    }
+    @Test
+    void testEquality_CmToInches_notEquivalentValue() {
+        // 2.54 cm = 1 inch, so 2.0 cm must NOT equal 1 inch
+        Length len1 = new Length(2.0, Length.LengthUnit.Centimeters);
+        Length len2 = new Length(1.0, Length.LengthUnit.Inches);
+
+        assertFalse(len1.equals(len2), "Expected 2.0 CM to NOT be equal to 1 Inch");
+        assertFalse(len2.equals(len1), "Expected symmetry: 1 Inch to NOT equal 2.0 CM");
+    }
 
 
 }

@@ -136,5 +136,42 @@ public class QuantityMeasurmentApp {
         Length l4 = new Length(6, Length.LengthUnit.Centimeters);
         System.out.println(l1.compare(l2)); // true
 
+        System.out.println("---Length convertor");
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter numeric value: ");
+        double valueStr = sc.nextDouble();
+        sc.nextLine();
+
+        System.out.print("Enter source unit (feet/ft, inches/in, yards/yd, centimeter/cm): ");
+        String sourceStr = sc.next();
+      //  Length.LengthUnit sourceUnit = Length.parseUnit(sourceStr);
+
+        System.out.print("Enter target unit (feet/ft, inches/in, yards/yd, centimeter/cm): ");
+        String targetStr = sc.next();
+
+        Length.LengthUnit sourceUnit = Length.parseUnit(sourceStr);
+        Length.LengthUnit targetUnit = Length.parseUnit(targetStr);
+
+        if(sourceUnit == null) {
+            System.err.println("Invalid source unit: " + sourceStr);
+            return;
+        }
+        if (targetUnit == null) {
+            System.err.println("Invalid target unit: " + targetStr);
+            return;
+        }
+        double converted = Length.convert(valueStr, sourceUnit, targetUnit);
+        System.out.println(converted);
+
+
+
+
+
+
+
+
+
+
+
     }
 }
