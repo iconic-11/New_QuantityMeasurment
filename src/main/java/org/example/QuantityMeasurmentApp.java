@@ -145,55 +145,50 @@ public class QuantityMeasurmentApp {
 
         System.out.println("---Length convertor");
         Scanner sc = new Scanner(System.in);
-        double valueStr1 = 0.0,valueStr2=0.0;
-        String sourceStr1 = "",sourceStr2="";
-        try {
             System.out.print("Enter numeric value1: ");
-            /*double*/ valueStr1 = sc.nextDouble();
+            double valueStr1 = sc.nextDouble();
             sc.nextLine();
 
 
             System.out.print("Enter source unit of first value(feet/ft, inches/in, yards/yd, centimeter/cm): ");
-            /*String*/ sourceStr1 = sc.next();
+            String sourceStr1 = sc.next();
             //  Length.LengthUnit sourceUnit = Length.parseUnit(sourceStr);
 
             System.out.print("Enter numeric value2: ");
-            valueStr2 = sc.nextDouble();
+            double valueStr2 = sc.nextDouble();
             sc.nextLine();
             System.out.print("Enter source unit of second value (feet/ft, inches/in, yards/yd, centimeter/cm): ");
-            /*String*/ sourceStr2 = sc.next();
+            String sourceStr2 = sc.next();
 
-            if (!sourceStr1.equalsIgnoreCase(sourceStr2)) {
-                throw new UnitMismatchException("Both unit must be same in UC6");
-            }
-        }
-        catch(UnitMismatchException ume){
-            System.out.println("Error: " + ume.getMessage());
 
-        }
+            System.out.print("Enter target unit (feet/ft, inches/in, yards/yd, centimeter/cm): ");
+            String targetStr = sc.next();
 
-    //    System.out.print("Enter target unit (feet/ft, inches/in, yards/yd, centimeter/cm): ");
-    //    String targetStr = sc.next();
+
 
         Length.LengthUnit sourceUnit1 = Length.parseUnit(sourceStr1);
         Length.LengthUnit sourceUnit2 = Length.parseUnit(sourceStr2);
-        double ans = valueStr1 + valueStr2;
-        System.out.println(ans +" "+sourceStr2);
+        Length.LengthUnit targetUnit = Length.parseUnit(targetStr);
 
-        //    Length.LengthUnit targetUnit = Length.parseUnit(targetStr);
+        double converted1 = Length.convert(valueStr1, sourceUnit1, targetUnit);
+        double converted2 = Length.convert(valueStr2, sourceUnit2, targetUnit);
+
+    //    double ans = valueStr1 + valueStr2;
+        double ans = converted1 + converted2;
+        System.out.println("Target Addition: "+ans +" "+targetStr);
+
+        //Length.LengthUnit targetUnit = Length.parseUnit(targetStr);
 
         if(sourceUnit1 == null || sourceUnit2==null) {
             System.err.println("Invalid source unit: ");
             return;
         }
-//        if (targetUnit == null) {
-//            System.err.println("Invalid target unit: " + targetStr);
-//            return;
-//        }
-//        double converted = Length.convert(ans, sourceUnit1, targetUnit);
-//        System.out.println(converted +" "+targetStr);
-
-
+        if (targetUnit == null) {
+            System.err.println("Invalid target unit: " + targetStr);
+            return;
+        }
+    //    double converted = Length.convert(ans, sourceUnit1, targetUnit);
+     //   System.out.println(converted +" "+targetStr);
 
 
     }
