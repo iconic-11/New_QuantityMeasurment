@@ -3,6 +3,13 @@ package org.example;
 import java.util.Scanner;
 import java.lang.Double;
 
+
+class UnitMismatchException extends Exception {
+    public UnitMismatchException(String message) {
+        super(message);
+    }
+}
+
 public class QuantityMeasurmentApp {
 
     public static class Feet {
@@ -138,37 +145,53 @@ public class QuantityMeasurmentApp {
 
         System.out.println("---Length convertor");
         Scanner sc = new Scanner(System.in);
-        System.out.print("Enter numeric value: ");
-        double valueStr = sc.nextDouble();
-        sc.nextLine();
+        double valueStr1 = 0.0,valueStr2=0.0;
+        String sourceStr1 = "",sourceStr2="";
+        try {
+            System.out.print("Enter numeric value1: ");
+            /*double*/ valueStr1 = sc.nextDouble();
+            sc.nextLine();
 
-        System.out.print("Enter source unit (feet/ft, inches/in, yards/yd, centimeter/cm): ");
-        String sourceStr = sc.next();
-      //  Length.LengthUnit sourceUnit = Length.parseUnit(sourceStr);
 
-        System.out.print("Enter target unit (feet/ft, inches/in, yards/yd, centimeter/cm): ");
-        String targetStr = sc.next();
+            System.out.print("Enter source unit of first value(feet/ft, inches/in, yards/yd, centimeter/cm): ");
+            /*String*/ sourceStr1 = sc.next();
+            //  Length.LengthUnit sourceUnit = Length.parseUnit(sourceStr);
 
-        Length.LengthUnit sourceUnit = Length.parseUnit(sourceStr);
-        Length.LengthUnit targetUnit = Length.parseUnit(targetStr);
+            System.out.print("Enter numeric value2: ");
+            valueStr2 = sc.nextDouble();
+            sc.nextLine();
+            System.out.print("Enter source unit of second value (feet/ft, inches/in, yards/yd, centimeter/cm): ");
+            /*String*/ sourceStr2 = sc.next();
 
-        if(sourceUnit == null) {
-            System.err.println("Invalid source unit: " + sourceStr);
+            if (!sourceStr1.equalsIgnoreCase(sourceStr2)) {
+                throw new UnitMismatchException("Both unit must be same in UC6");
+            }
+        }
+        catch(UnitMismatchException ume){
+            System.out.println("Error: " + ume.getMessage());
+
+        }
+
+    //    System.out.print("Enter target unit (feet/ft, inches/in, yards/yd, centimeter/cm): ");
+    //    String targetStr = sc.next();
+
+        Length.LengthUnit sourceUnit1 = Length.parseUnit(sourceStr1);
+        Length.LengthUnit sourceUnit2 = Length.parseUnit(sourceStr2);
+        double ans = valueStr1 + valueStr2;
+        System.out.println(ans +" "+sourceStr2);
+
+        //    Length.LengthUnit targetUnit = Length.parseUnit(targetStr);
+
+        if(sourceUnit1 == null || sourceUnit2==null) {
+            System.err.println("Invalid source unit: ");
             return;
         }
-        if (targetUnit == null) {
-            System.err.println("Invalid target unit: " + targetStr);
-            return;
-        }
-        double converted = Length.convert(valueStr, sourceUnit, targetUnit);
-        System.out.println(converted);
-
-
-
-
-
-
-
+//        if (targetUnit == null) {
+//            System.err.println("Invalid target unit: " + targetStr);
+//            return;
+//        }
+//        double converted = Length.convert(ans, sourceUnit1, targetUnit);
+//        System.out.println(converted +" "+targetStr);
 
 
 
