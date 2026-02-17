@@ -425,6 +425,84 @@ public class QuantityMeasurmentAppTest {
         assertThrows(IllegalArgumentException.class,
                 () -> convert(1.0, LengthEnum.Inches, null));
     }
+    // test case for UC-9
+
+    @Test
+    void kilogramToKilogramEquality() {
+        Weight a = new Weight(5.0, WeightEnum.Kilogram);
+        Weight b = new Weight(5.0, WeightEnum.Kilogram);
+        assertEquals(a, b, "Two equal kilogram values should be equal");
+    }
+    @Test
+    void gramToGramEquality() {
+        Weight a = new Weight(2500.0, WeightEnum.Gram);
+        Weight b = new Weight(2500.0, WeightEnum.Gram);
+        assertEquals(a, b, "Two equal gram values should be equal");
+    }
+
+    @Test
+    void poundToPoundEquality() {
+        Weight a = new Weight(10.0, WeightEnum.Pound);
+        Weight b = new Weight(10.0, WeightEnum.Pound);
+        assertEquals(a, b, "Two equal pound values should be equal");
+    }
+    @Test
+    void crossUnitKgToGramEquality() {
+        Weight kg = new Weight(1.0, WeightEnum.Kilogram);
+        Weight g  = new Weight(1000.0, WeightEnum.Gram);
+        assertEquals(kg, g, "1 kilogram should equal 1000 grams");
+    }
+
+    @Test
+    @DisplayName("5. Cross-Unit Weight Equality (Kilogram to Pound): 1 kg == 2.20462262185 lb")
+    void crossUnitKgToPoundEquality() {
+        Weight kg = new Weight(1.0, WeightEnum.Kilogram);
+        Weight lb = new Weight(2.20462262185, WeightEnum.Pound);
+        assertEquals(kg, lb, "1 kilogram should equal 2.20462262185 pounds (within tolerance)");
+    }
+
+
+    @Test
+    @DisplayName("Round-trip conversions preserve value within epsilon across all units")
+    void roundTripAllPairs() {
+        double[] samples = {0, 1e-6, 1, 2.5, 10, 1234.56789};
+        WeightEnum[] units = {WeightEnum.Kilogram, WeightEnum.Gram, WeightEnum.Pound};
+
+        for (double v : samples) {
+            for (WeightEnum src : units) {
+                for (WeightEnum tgt : units) {
+                    double toTgt = WeightEnum.convert(v, src, tgt);
+                    double back = WeightEnum.convert(toTgt, tgt, src);
+                    assertEquals(v, back, 1e-9,
+                            "Round-trip mismatch for " + v + " " + src + " via " + tgt);
+
+                }
+            }
+        }
+    }
+
+
+    @Test
+    @DisplayName("9. Symmetric Equality: if A==B then B==A")
+    void symmetricEquality() {
+        Weight a = new Weight(1000.0, WeightEnum.Gram);      // 1 kg
+        Weight b = new Weight(1.0, WeightEnum.Kilogram);     // 1 kg
+        assertTrue(a.equals(b) && b.equals(a),
+                "Equality must be symmetric");
+    }
+
+    @Test
+    @DisplayName("10. Transitive Equality: if A==B and B==C then A==C")
+    void transitiveEquality() {
+        Weight a = new Weight(1.0, WeightEnum.Kilogram);
+        Weight b = new Weight(1000.0, WeightEnum.Gram);
+        Weight c = new Weight(2.0462262185, WeightEnum.Pound);
+
+        assertEquals(a, b, "A should equal B");
+        assertEquals(b, c, "B should equal C");
+        assertEquals(a, c, "Therefore A should equal C (transitivity)");
+    }
+
 
 
 }
