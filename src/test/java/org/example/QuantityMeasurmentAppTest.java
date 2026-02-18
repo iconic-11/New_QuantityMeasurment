@@ -496,7 +496,7 @@ public class QuantityMeasurmentAppTest {
     void transitiveEquality() {
         Weight a = new Weight(1.0, WeightEnum.Kilogram);
         Weight b = new Weight(1000.0, WeightEnum.Gram);
-        Weight c = new Weight(2.0462262185, WeightEnum.Pound);
+        Weight c = new Weight(2.20462262185, WeightEnum.Pound);
 
         assertEquals(a, b, "A should equal B");
         assertEquals(b, c, "B should equal C");
